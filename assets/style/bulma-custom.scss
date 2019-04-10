@@ -1,0 +1,38 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+
+// You can use all the Bulma variables from here: https://bulma.io/documentation/customize/variables/
+// Eg.:
+// $primary: #8c67ef;
+
+// These are the only two coming from Buefy as an extra, so I'll just leave them here commented:
+// $speed-slow: 150ms !default
+// $speed-slower: 250ms !default
+$wine-red: #9b0e27;
+$wine-red-invert: findColorInvert($wine-red) !default;
+
+$vue-blue: #38455c;
+$vue-blue-invert:findColorInvert($vue-blue) !default;
+
+$primary: $wine-red;
+$primary-invert: $wine-red-invert;
+
+$link: $vue-blue;
+$link-invert: $vue-blue-invert;
+
+$colors: (
+    "white": ($white, $black),
+    "black": ($black, $white),
+    "light": ($light, $light-invert),
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "link": ($link, $link-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert)
+);
+
+// Import (generate from the upper variables) Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
