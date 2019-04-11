@@ -33,8 +33,12 @@
                 <marker-button :button="marker" />
               </l-icon>
               <l-popup>
-                <h4>{{ marker.name }}</h4>
-                <p>{{ marker.description }}</p>
+                <h4 class="subtitle">
+                  {{ marker.name }}
+                </h4>
+                <blockquote class="content">
+                  {{ marker.description }}
+                </blockquote>
               </l-popup>
             </l-marker>
           </l-map>
