@@ -13,7 +13,7 @@
             <l-control>
               <div class="Navigation">
                 <don-logo />
-                <div v-for="(button, index) in markers" :key="'b' + index" class="ButtonContainer">
+                <div v-for="(button) in markers" :key="'b' + button.id" class="ButtonContainer">
                   <b-tooltip
                     :label="button.name"
                     type="is-light"
@@ -28,7 +28,7 @@
               <reach-me />
             </l-control>
             <l-tile-layer :url="url" :attribution="attribution" />
-            <l-marker v-for="(marker, index) in markers" :key="'m' + index" :lat-lng="marker.coords" @update:latLng="log">
+            <l-marker v-for="(marker) in markers" :key="'m' + marker.id" ref="markers" :lat-lng="marker.coords" @update:latLng="log">
               <l-icon :popup-anchor="[10,0]">
                 <marker-button :button="marker" />
               </l-icon>
@@ -70,6 +70,7 @@ export default {
       markers: [
         {
           name: 'Birthplace',
+          id: 1,
           icon: 'baby-buggy',
           type: 'is-primary',
           coords: [43.3386996, 12.8907421],
@@ -78,6 +79,7 @@ export default {
         },
         {
           name: 'University',
+          id: 2,
           icon: 'school',
           type: 'is-primary',
           coords: [41.98402617126427, 12.653760910034181],
@@ -86,6 +88,7 @@ export default {
         },
         {
           name: 'Sinergie',
+          id: 3,
           icon: 'flower',
           type: 'is-primary',
           coords: [41.7660815, 12.4724878],
@@ -94,6 +97,7 @@ export default {
         },
         {
           name: 'MyHospital',
+          id: 4,
           icon: 'android',
           type: 'is-primary',
           coords: [40.6747384, 14.7576368],
@@ -102,6 +106,7 @@ export default {
         },
         {
           name: 'Chemaxon',
+          id: 5,
           icon: 'chemical-weapon',
           type: 'is-primary',
           coords: [47.66160109191127, 18.96952629089356],
@@ -110,6 +115,7 @@ export default {
         },
         {
           name: 'Pulilab',
+          id: 6,
           src: PuliIcon,
           coords: [47.34301034806174, 19.19547557830811],
           description:
@@ -117,6 +123,7 @@ export default {
         },
         {
           name: 'Amsterdam VueJs',
+          id: 7,
           icon: 'vuejs',
           type: 'is-primary',
           coords: [52.3546274, 4.8285839],
@@ -147,7 +154,13 @@ export default {
       console.log(arg)
     },
     flyTo({ coords }) {
+      const marker = this.$refs.markers.find(
+        m => m.latLng[0] === coords[0] && m.latLng[1] === coords[1]
+      )
       this.$refs.map.mapObject.flyTo(coords, 10)
+      if (marker && marker.mapObject) {
+        marker.mapObject.openPopup(coords)
+      }
     }
   }
 }
