@@ -1,6 +1,6 @@
 <template>
   <transition appear :name="transition">
-    <button class="button FixedSize" @click="action(button)">
+    <button class="button FixedSize" @click.stop.prevent="action(button)">
       <b-icon v-if="!button.src" :type="button.type" :icon="button.icon" size="is-medium" />
       <figure v-else class="image is-32x32">
         <img class="ButtonImage" :src="button.src">
