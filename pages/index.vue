@@ -102,7 +102,7 @@ export default {
           type: 'is-primary',
           coords: [40.6747384, 14.7576368],
           description:
-            'It was during the rising of cordova that I started working as ios / android hybrid developer, I probably can recie Ionic 1.x documentation by heart'
+            'It was during the rising of cordova that I started working as ios / android hybrid developer, I probably can recite Ionic 1.x documentation by heart'
         },
         {
           name: 'Chemaxon',
