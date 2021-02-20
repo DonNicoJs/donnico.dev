@@ -4,22 +4,25 @@
       <welcome-logo />
       <div class="MapContainer is-flex-column">
         <no-ssr>
-          <l-map
-            ref="map"
-            :style="{flex: 1}"
-            :zoom="zoom"
-            :center="center"
-          >
+          <l-map ref="map" :style="{ flex: 1 }" :zoom="zoom" :center="center">
             <l-control>
               <div class="Navigation">
                 <don-logo />
-                <div v-for="(button) in markers" :key="'b' + button.id" class="ButtonContainer">
+                <div
+                  v-for="button in markers"
+                  :key="'b' + button.id"
+                  class="ButtonContainer"
+                >
                   <b-tooltip
                     :label="button.name"
                     type="is-light"
                     position="is-left"
                   >
-                    <marker-button transition="slide" :button="button" :action="flyTo" />
+                    <marker-button
+                      transition="slide"
+                      :button="button"
+                      :action="flyTo"
+                    />
                   </b-tooltip>
                 </div>
               </div>
@@ -28,8 +31,14 @@
               <reach-me />
             </l-control>
             <l-tile-layer :url="url" :attribution="attribution" />
-            <l-marker v-for="(marker) in markers" :key="'m' + marker.id" ref="markers" :lat-lng="marker.coords" @update:latLng="log">
-              <l-icon :popup-anchor="[10,0]">
+            <l-marker
+              v-for="marker in markers"
+              :key="'m' + marker.id"
+              ref="markers"
+              :lat-lng="marker.coords"
+              @update:latLng="log"
+            >
+              <l-icon :popup-anchor="[10, 0]">
                 <marker-button :button="marker" />
               </l-icon>
               <l-popup>
@@ -60,18 +69,18 @@ export default {
   name: 'HomePage',
 
   components: { DonLogo, WelcomeLogo, MarkerButton, ReachMe },
-  data() {
+  data () {
     return {
-      url: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution:
-        '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       zoom: 7,
       center: [43.919658762067655, 16.40241622924805],
       markers: [
         {
           name: 'Birthplace',
           id: 1,
-          icon: 'baby-buggy',
+          icon: 'baby-carriage',
           type: 'is-primary',
           coords: [43.3386996, 12.8907421],
           description:
@@ -119,7 +128,7 @@ export default {
           src: PuliIcon,
           coords: [47.34301034806174, 19.19547557830811],
           description:
-            'My current workplace, totally utterly amazing, did I say amazing? Yeah I did I DID right? Jokes aside, here VueJs is my bread and butter since 2.5 years'
+            'My previous workplace, totally utterly amazing, did I say amazing? Yeah I did I DID right? Jokes aside, here VueJs is my bread and butter since 2.5 years'
         },
         {
           name: 'Amsterdam VueJs',
@@ -129,12 +138,21 @@ export default {
           coords: [52.3546274, 4.8285839],
           description:
             'The first Vuejs conf was inspiring, and the second one even more, here is where my desire of doing open source exploded and became reality'
+        },
+        {
+          name: 'Gitlab',
+          id: 7,
+          icon: 'gitlab',
+          type: 'is-primary',
+          coords: [37.7641904, -122.4179228],
+          description:
+            'My current workplace, doing my best and working with a rockstar team'
         }
       ]
     }
   },
   computed: {
-    polylines() {
+    polylines () {
       const result = []
       this.markers.forEach((current, index) => {
         const next = this.markers[index + 1]
@@ -149,11 +167,11 @@ export default {
     }
   },
   methods: {
-    log(arg) {
+    log (arg) {
       // eslint-disable-next-line no-console
       console.log(arg)
     },
-    flyTo({ coords }) {
+    flyTo ({ coords }) {
       const marker = this.$refs.markers.find(
         m => m.latLng[0] === coords[0] && m.latLng[1] === coords[1]
       )
