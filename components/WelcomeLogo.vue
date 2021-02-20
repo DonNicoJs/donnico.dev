@@ -17,19 +17,19 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       initialised: false,
       showLogo: true,
       showBowtie: false
     }
   },
-  async mounted() {
+  async mounted () {
     await this.$nextTick()
     this.initialised = true
   },
   methods: {
-    hideLogo() {
+    hideLogo () {
       window.setTimeout(() => {
         this.showLogo = false
       }, 1000)
